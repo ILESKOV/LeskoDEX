@@ -1,12 +1,12 @@
+// SPDX-License-Identifier: MIT
 /// @title A contract for ERC-20 "" Token
-/// @author ___SLON___
+/// @author LESKOV
 /// @notice The contract creates a token according to the ERC-20 standard
-pragma solidity ^0.5.0;
-//Safe Math is used here to avoid potential overflows and underflows
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+pragma solidity ^0.8.13;
+
 
 contract Token{
-  using SafeMath for uint;
+
 /// @dev STATE VARIABLES are here
   string public name = "ESKO";
   string public symbol = "ESKO";
@@ -24,7 +24,7 @@ contract Token{
    event Approval(address indexed owner, address indexed spender, uint value);
 /// @notice Supply is million tokens. Supply*(10**decimals)are in Wei
 /// @notice Initialisation of totalSupply and giving all tokens to deployer
-  constructor() public{
+  constructor(){
       totalSupply = 1000000 * (10 ** decimals);
       balanceOf[msg.sender] = totalSupply;
   }
@@ -38,8 +38,8 @@ contract Token{
 /// @notice This _transfer function is the same part of transfer and transferFrom functions 
    function _transfer(address _from, address _to, uint256 _value) internal{
       require(_to != address(0));
-      balanceOf[_from] = balanceOf[_from].sub(_value);
-      balanceOf[_to] = balanceOf[_to].add(_value);
+      balanceOf[_from] = balanceOf[_from] - (_value);
+      balanceOf[_to] = balanceOf[_to] + (_value);
       emit Transfer(_from, _to, _value);
    }
 
@@ -55,7 +55,7 @@ contract Token{
   function transferFrom(address _from, address _to, uint256 _value)public returns(bool success){
       require(_value <= balanceOf[_from]);
       require(_value <= allowance[_from][msg.sender]);
-      allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);
+      allowance[_from][msg.sender] = allowance[_from][msg.sender] - (_value);
       _transfer(_from, _to, _value);
       return true;
   }
