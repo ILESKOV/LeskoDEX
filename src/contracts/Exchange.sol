@@ -75,10 +75,8 @@ contract Exchange{
 
 /// @dev Fallback: reverts if Ether is sent to this smart contract by mistake   
   fallback() external payable{
-     revert();
   }
   receive() external payable {
-    revert();
   }
 
 /// @notice Function for deposit only Ether to exchange 
