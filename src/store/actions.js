@@ -196,3 +196,4 @@ export function sellOrderMaking(price) {
     type: 'SELL_ORDER_MAKING'
   }
 }
+
