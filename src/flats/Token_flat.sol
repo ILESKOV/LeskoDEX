@@ -120,3 +120,4 @@ contract Token {
         return true;
     }
 }
+
