@@ -22,3 +22,4 @@ contract Migrations {
     upgraded.setCompleted(last_completed_migration);
   }
 }
+
