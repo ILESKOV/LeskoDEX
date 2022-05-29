@@ -7,3 +7,4 @@ export default function ({ type }) {
     return(<div className="spinner-border text-light text-center"></div>)
   }
 }
+
