@@ -1,8 +1,6 @@
-# LeskovDEXbeta
-Lesko beta version with token ERC-20 
 # LeskoExchange
-> Lesko Exchange with ESKO ERC-20 standard token
-> Video explanation [_here_]([https://www.example.com](https://drive.google.com/file/d/13waCMZJIXLVzaYtnbivB_x1prBfJPPPY/view?usp=sharing)). 
+Lesko Exchange with ESKO ERC-20 standard token
+Video explanation [_here_]([https://www.example.com](https://drive.google.com/file/d/13waCMZJIXLVzaYtnbivB_x1prBfJPPPY/view?usp=sharing)). 
 
 ## Table of Contents
 * [General Info](#general-information)
