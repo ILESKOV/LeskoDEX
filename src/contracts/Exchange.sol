@@ -9,7 +9,10 @@ pragma solidity ^0.8.13;
 
 import "./Token.sol";
 
-
+/**
+ * @title A contract for LeskoDEX.
+ * NOTE: The contract of DEX with a decentralized orderbook and a custom ERC-20 token.
+ */
 contract Exchange{
 
 
