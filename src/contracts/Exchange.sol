@@ -31,8 +31,32 @@ contract Exchange{
   //A way to store filled orders
   mapping(uint256 => bool)public orderFilled;
 /// @dev EVENTS are here
+ /**
+  * @dev Emitted when the user deposits the tokens to the exchange.
+  * @param token address of the deposited token.
+  * @param user address of the user that deposited tokens.
+  * @param amount amount of deposited tokens.
+  * @param balance the exchange balance of these user tokens after deposit.
+  */
   event Deposit(address token, address user, uint256 amount, uint256 balance);
+ /**
+  * @dev Emitted when the user withdraws the tokens from the exchange.
+  * @param token the address of the token to be withdrawn.
+  * @param user address of the user to whom funds are withdrawn.
+  * @param amount amount of withdrawn tokens.
+  * @param balance the exchange balance of these user tokens after withdrawn.
+  */
   event Withdraw(address token, address user, uint256 amount, uint256 balance);
+ /**
+  * @dev Emitted when the user create an order.
+  * @param id order count id.
+  * @param user address of the user that create this order.
+  * @param tokenGet the address of the token that the user wants to get.
+  * @param amountGet the amount of `tokenGet` token user wants to get.
+  * @param tokenGive the address of the token that the user wants to give.
+  * @param amountGive the amount of `tokenGive` token user wants to give.
+  * @param timestamp time of order creation.
+  */
   event  Order(uint256 id,
              address user,
              address tokenGet,
