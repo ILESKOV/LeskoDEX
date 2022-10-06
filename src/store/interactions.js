@@ -77,7 +77,7 @@ export const loadExchange = async (web3, networkId, dispatch) => {
 
 export const loadAllOrders = async (exchange, dispatch) => {
   // Fetch cancelled orders with the "Cancel" event stream
-  const cancelStream = await exchange.getPastEvents("Cancel", {
+  const cancelStream = await exchange.getPastEvents("OrderCancelled", {
     fromBlock: 0,
     toBlock: "latest",
   });
@@ -87,7 +87,7 @@ export const loadAllOrders = async (exchange, dispatch) => {
   dispatch(cancelledOrdersLoaded(cancelledOrders));
 
   // Fetch filled orders with the "Trade" event stream
-  const tradeStream = await exchange.getPastEvents("Trade", {
+  const tradeStream = await exchange.getPastEvents("OrderFilled", {
     fromBlock: 0,
     toBlock: "latest",
   });
@@ -97,7 +97,7 @@ export const loadAllOrders = async (exchange, dispatch) => {
   dispatch(filledOrdersLoaded(filledOrders));
 
   // Load order stream
-  const orderStream = await exchange.getPastEvents("Order", {
+  const orderStream = await exchange.getPastEvents("OrderCreated", {
     fromBlock: 0,
     toBlock: "latest",
   });
@@ -108,11 +108,11 @@ export const loadAllOrders = async (exchange, dispatch) => {
 };
 
 export const subscribeToEvents = async (exchange, dispatch) => {
-  exchange.events.Cancel({}, (error, event) => {
+  exchange.events.OrderCancelled({}, (error, event) => {
     dispatch(orderCancelled(event.returnValues));
   });
 
-  exchange.events.Trade({}, (error, event) => {
+  exchange.events.OrderFilled({}, (error, event) => {
     dispatch(orderFilled(event.returnValues));
   });
 
@@ -124,7 +124,7 @@ export const subscribeToEvents = async (exchange, dispatch) => {
     dispatch(balancesLoaded());
   });
 
-  exchange.events.Order({}, (error, event) => {
+  exchange.events.OrderCreated({}, (error, event) => {
     dispatch(orderMade(event.returnValues));
   });
 };
@@ -330,3 +330,4 @@ export const makeSellOrder = (
       window.alert(`There was an error!`);
     });
 };
+
