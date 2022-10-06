@@ -9,6 +9,7 @@
     "node": "8.11.1"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^4.7.3",
     "@truffle/hdwallet-provider": "^2.0.0",
     "apexcharts": "3.6.3",
     "babel-polyfill": "6.26.0",
