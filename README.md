@@ -42,14 +42,26 @@ List the ready features here:
 
 
 ## Setup
-Download repository and after that open terminal and run "npm install" in order to download all dependencies, that are listed in package.json file. 
-* npm install
+## 📟 Setup
+### 1. 💾 Clone/Download the Repository
+### 2. 📦 Install Dependencies:
+```
+$ cd repository_file
+$ npm install
+```
+
 After that you need to run your local blockchain. Open Ganache and in terminal run command:
-* truffle migrate --reset:
+```
+truffle migrate --reset:
+```
 To do some interctions exchange have script for fill some orders until exchange is not live-traded. Run
-* truffle exec scripts/seed-exchange.js
+```
+truffle exec scripts/seed-exchange.js
+```
 After that let's run:
-* npm run start
+```
+npm run start
+```
 And at the end page will ask you to connect to your Metamask wallet. After you connected the setup is done!
 
 
@@ -66,8 +78,4 @@ Room for improvement:
 
 ## Contact
 Created by [@LESKOV](https://www.linkedin.com/in/ivan-leskov-4b5664189/) - feel free to contact me!
-
-
-
-
 
