@@ -38,7 +38,7 @@ List the ready features here:
 - User can see ETH / ESKO price action in integrated chart
 
 ## Screenshots
-![Example screenshot](./Screenshot.png)
+![Example screenshot](./helpers/Screenshot.png)
 
 
 ## Setup
