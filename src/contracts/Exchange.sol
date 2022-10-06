@@ -1,42 +1,4 @@
 // SPDX-License-Identifier: MIT
-/// @title A contract for DECENTRALIZED EXCHANGE
-/// @author LESKOV
-/// @notice This exchange allow as to:
-                                      // Deposit & Withdraw Funds
-                                      // Manage Orders
-                                      // Handle Trades - Charge fees
-pragma solidity ^0.8.13;
-
-import "./Token.sol";
-
-/**
- * @title A contract for LeskoDEX.
- * NOTE: The contract of DEX with a decentralized orderbook and a custom ERC-20 token.
- */
-contract Exchange{
-
-
-/// @dev STATE VARIABLES are here
-  address public feeAccount; // the acccount that receives exchange fees
-  uint256 public feePercent; // the fee percentage
-  address constant ETHER = address(0); //allows as to store Ether in tokens mapping with blank address
-/// @dev MAPPINGS are here
-  //Tracks of the number of individual tokens of each user
-  mapping(address => mapping(address => uint256))public tokens;
-  //A way to store the orders
-  mapping(uint256 => _Order)public orders;
-  uint256 public orderCount;
-  //A way to store cancel orders
-  mapping(uint256 => bool)public orderCancelled;
-  //A way to store filled orders
-  mapping(uint256 => bool)public orderFilled;
-// SPDX-License-Identifier: MIT
-/// @title A contract for DECENTRALIZED EXCHANGE
-/// @author LESKOV
-/// @notice This exchange allow as to:
-// Deposit & Withdraw Funds
-// Manage Orders
-// Handle Trades - Charge fees
 pragma solidity ^0.8.13;
 
 import "./Token.sol";
