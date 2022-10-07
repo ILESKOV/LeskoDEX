@@ -66,7 +66,7 @@ And at the end page will ask you to connect to your Metamask wallet. After you c
 
 
 ## Project Status
-Project is: _in progress_ . 
+Project is: _in progress_ 
 
 
 ## Room for Improvement
