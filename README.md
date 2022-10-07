@@ -2,7 +2,7 @@
 >Lesko Exchange with ESKO ERC-20 standard token
 >Video explanation [_here_](https://drive.google.com/file/d/13waCMZJIXLVzaYtnbivB_x1prBfJPPPY/view?usp=sharing). 
 
-## Table of Contents
+## 📁 Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
