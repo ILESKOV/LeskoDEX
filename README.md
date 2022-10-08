@@ -76,6 +76,7 @@ Room for improvement:
 - Add more time frames on chart 
 - Hardhat migration
 - Get liquidity, migrate to AMM version
+- Improve UI and UX
 
 
 ## Contact
