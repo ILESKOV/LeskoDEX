@@ -75,6 +75,7 @@ Room for improvement:
 - Add more tokens for trading
 - Add more time frames on chart 
 - Hardhat migration
+- Get liquidity, migrate to AMM version
 
 
 ## Contact
