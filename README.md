@@ -73,7 +73,8 @@ Project is: _in progress_
 
 Room for improvement:
 - Add more tokens for trading
-- Add more time frames on chart
+- Add more time frames on chart 
+- Hardhat migration
 
 
 ## Contact
