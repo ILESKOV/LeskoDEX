@@ -354,6 +354,13 @@ contract LESKOdex {
     }
 
     /**
+     * @dev Returns by providing order Id the bool whether the order was cancelled.
+     */
+    function getOrderCancelled(uint256 orderId_) public view returns (bool) {
+        return _orderCancelled[orderId_];
+    }
+
+    /**
      * @dev Returns the amount of all orders.
      */
     function getOrderCount() public view returns (uint256) {
