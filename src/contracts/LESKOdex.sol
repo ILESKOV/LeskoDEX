@@ -18,9 +18,9 @@ contract LESKOdex {
         uint256 timestamp;
     }
 
-    address public constant ETHER = address(0); //allows as to store Ether in tokens mapping with blank address
-    address private _feeAccount; // the acccount that receives exchange fees
-    uint256 private _feePercent; // the fee percentage
+    address public constant ETHER = address(0); 
+    address private _feeAccount; 
+    uint256 private _feePercent; 
     uint256 private _orderCount;
 
     // Mapping from token address to mapping from user address to amount of tokens.
@@ -120,11 +120,16 @@ contract LESKOdex {
         _feePercent = feePercent_;
     }
 
-    /// @dev Fallback: reverts if Ether is sent to this smart contract by mistake
+    /**
+     * @dev If user sends Ether to this contract directly call depositEther().
+     */
     fallback() external payable {
         depositEther();
     }
 
+    /**
+     * @dev If user sends Ether to this contract directly call depositEther().
+     */
     receive() external payable {
         depositEther();
     }
@@ -178,13 +183,9 @@ contract LESKOdex {
      * Emits a {Deposit} event.
      */
     function depositToken(address token_, uint256 amount_) public {
-        //Don't allow ETHER deposits
         require(token_ != ETHER, "ERC20 cannot be address zero");
-        // Send tokens to this contract
         IERC20(token_).transferFrom(msg.sender, address(this), amount_);
-        // Manage deposit - update balance
         _tokens[token_][msg.sender] = _tokens[token_][msg.sender] + (amount_);
-        // Emit event
         emit Deposit(token_, msg.sender, amount_, _tokens[token_][msg.sender]);
     }
 
@@ -336,5 +337,19 @@ contract LESKOdex {
         _tokens[tokenGive_][user_] = _tokens[tokenGive_][user_] - (amountGive_);
         _tokens[tokenGive_][msg.sender] = _tokens[tokenGive_][msg.sender] + (amountGive_);
         emit OrderFilled(id_, user_, tokenGet_, amountGet_, tokenGive_, amountGive_, msg.sender, block.timestamp);
+    }
+
+    /**
+     * @dev Returns the address of the fee account that receives exchange fees.
+     */
+    function getFeeAccount() public view returns (address) {
+        return _feeAccount;
+    }
+
+    /**
+     * @dev Returns the fee percent of every transaction.
+     */
+    function getFeePercent() public view returns (uint256) {
+        return _feePercent;
     }
 }
