@@ -18,9 +18,9 @@ contract LESKOdex {
         uint256 timestamp;
     }
 
-    address public constant ETHER = address(0); //allows as to store Ether in tokens mapping with blank address
-    address private _feeAccount; // the acccount that receives exchange fees
-    uint256 private _feePercent; // the fee percentage
+    address public constant ETHER = address(0); 
+    address private _feeAccount; 
+    uint256 private _feePercent; 
     uint256 private _orderCount;
 
     // Mapping from token address to mapping from user address to amount of tokens.
@@ -339,9 +339,16 @@ contract LESKOdex {
     }
 
     /**
-     * @dev Returns the fee account address.
+     * @dev Returns the address of the fee account that receives exchange fees.
      */
     function getFeeAccount() public view returns (address) {
         return _feeAccount;
+    }
+
+    /**
+     * @dev Returns the fee percent of every transaction.
+     */
+    function getFeePercent() public view returns (uint256) {
+        return _feePercent;
     }
 }
