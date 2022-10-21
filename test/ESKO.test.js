@@ -1,5 +1,7 @@
-import { tokens, EVM_REVERT } from "./helpers";
-
+const EVM_REVERT = "VM Exception while processing transaction: revert";
+const tokens = (n) => {
+  return new web3.utils.BN(web3.utils.toWei(n.toString(), "ether"));
+};
 const Token = artifacts.require("./ESKO");
 
 require("chai").use(require("chai-as-promised")).should();
@@ -156,15 +158,13 @@ contract("Token", ([deployer, receiver, exchange]) => {
         allowance.toString().should.equal("0");
       });
 
-      it("emits a Transfer event", () => {
+      it("emits a Approval event", () => {
         const log = result.logs[0];
-        log.event.should.eq("Transfer");
+        log.event.should.eq("Approval");
         const event = log.args;
-        event.from.toString().should.equal(deployer, "from is correct");
-        event.to.should.equal(receiver, "to is correct");
-        event.value
-          .toString()
-          .should.equal(amount.toString(), "value is correct");
+        event.owner.should.equal(deployer, "from is correct");
+        event.spender.should.equal(exchange, "to is correct");
+        event.value.toString().should.equal("0", "value is correct");
       });
     });
 
