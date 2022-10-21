@@ -242,7 +242,7 @@ contract LESKOdex {
     ) public {
         require(amountGet_ != 0, "Getting amount cannot be zero");
         require(amountGive_ != 0, "Giving amount cannot be zero");
-        _orderCount = _orderCount + 1;
+        _orderCount += 1;
         _orders[_orderCount] = Order(
             _orderCount,
             msg.sender,
@@ -351,5 +351,12 @@ contract LESKOdex {
      */
     function getFeePercent() public view returns (uint256) {
         return _feePercent;
+    }
+
+    /**
+     * @dev Returns the amount of all orders.
+     */
+    function getOrderCount() public view returns (uint256) {
+        return _orderCount;
     }
 }
