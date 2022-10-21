@@ -337,4 +337,11 @@ contract LESKOdex {
         _tokens[tokenGive_][msg.sender] = _tokens[tokenGive_][msg.sender] + (amountGive_);
         emit OrderFilled(id_, user_, tokenGet_, amountGet_, tokenGive_, amountGive_, msg.sender, block.timestamp);
     }
+
+    /**
+     * @dev Returns the fee account address.
+     */
+    function getFeeAccount() public view returns (address) {
+        return _feeAccount;
+    }
 }
