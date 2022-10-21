@@ -354,6 +354,13 @@ contract LESKOdex {
     }
 
     /**
+     * @dev Returns the Order data by providing order Id.
+     */
+    function getOrder(uint256 orderId_) public view returns (Order memory) {
+        return _orders[orderId_];
+    }
+
+    /**
      * @dev Returns the amount of all orders.
      */
     function getOrderCount() public view returns (uint256) {
