@@ -120,11 +120,16 @@ contract LESKOdex {
         _feePercent = feePercent_;
     }
 
-    /// @dev Fallback: reverts if Ether is sent to this smart contract by mistake
+    /**
+     * @dev If user sends Ether to this contract directly call depositEther().
+     */
     fallback() external payable {
         depositEther();
     }
 
+    /**
+     * @dev If user sends Ether to this contract directly call depositEther().
+     */
     receive() external payable {
         depositEther();
     }
@@ -178,13 +183,9 @@ contract LESKOdex {
      * Emits a {Deposit} event.
      */
     function depositToken(address token_, uint256 amount_) public {
-        //Don't allow ETHER deposits
         require(token_ != ETHER, "ERC20 cannot be address zero");
-        // Send tokens to this contract
         IERC20(token_).transferFrom(msg.sender, address(this), amount_);
-        // Manage deposit - update balance
         _tokens[token_][msg.sender] = _tokens[token_][msg.sender] + (amount_);
-        // Emit event
         emit Deposit(token_, msg.sender, amount_, _tokens[token_][msg.sender]);
     }
 
