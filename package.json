@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.3",
-    "@truffle/hdwallet-provider": "^2.0.0",
+    "@truffle/hdwallet-provider": "^1.4.0",
     "apexcharts": "3.6.3",
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.7.0",
@@ -46,7 +46,6 @@
     "reselect": "4.0.0",
     "truffle": "^5.1.45",
     "truffle-flattener": "1.5.0",
-    "truffle-hdwallet-provider": "^1.0.17",
     "truffle-hdwallet-provider-privkey": "^0.3.0",
     "web3": "1.2.6"
   },
