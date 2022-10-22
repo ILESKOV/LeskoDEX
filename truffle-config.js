@@ -2,7 +2,7 @@ require("babel-register");
 require("babel-polyfill");
 require("dotenv").config();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const { PRIVATE_KEY_0, GOERLI_API, MAINNET_API, MUMBAI_API } = process.env;
+const { PRIVATE_KEY, GOERLI_API, MAINNET_API, MUMBAI_API } = process.env;
 
 module.exports = {
   networks: {
@@ -12,17 +12,17 @@ module.exports = {
       network_id: "*", //  Match any network id
     },
     goerli: {
-      provider: () => new HDWalletProvider(PRIVATE_KEY_0, GOERLI_API),
+      provider: () => new HDWalletProvider(PRIVATE_KEY, GOERLI_API),
       network_id: 599,
       skipDryRun: true,
     },
     ethereum: {
-      provider: () => new HDWalletProvider(PRIVATE_KEY_0, MAINNET_API),
+      provider: () => new HDWalletProvider(PRIVATE_KEY, MAINNET_API),
       network_id: 1,
       skipDryRun: true,
     },
     matic: {
-      provider: () => new HDWalletProvider(PRIVATE_KEY_0, MUMBAI_API),
+      provider: () => new HDWalletProvider(PRIVATE_KEY, MUMBAI_API),
       network_id: 80001,
       skipDryRun: true,
     },
