@@ -86,12 +86,6 @@ Room for improvement:
 - Get liquidity, migrate to AMM version
 - Improve UI and UX
 
-
-
-
-
-
-
 ## Contact
 Created by [@LESKOV](https://www.linkedin.com/in/ivan-leskov-4b5664189/) - feel free to contact me!
 
