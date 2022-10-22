@@ -54,9 +54,17 @@ After that you need to run your local blockchain. Open Ganache and in terminal r
 ```
 truffle migrate --reset:
 ```
+Or if you whant to deploy to test network you can run:
+```
+truffle migrate --reset --network matic
+```
+or
+```
+truffle migrate --reset --network goerli
+```
 To do some interctions exchange have script for fill some orders until exchange is not live-traded. Run
 ```
-truffle exec scripts/seed-exchange.js
+npm run seed-exchange
 ```
 After that let's run:
 ```
