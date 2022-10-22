@@ -62,7 +62,7 @@ or
 ```
 truffle migrate --reset --network goerli
 ```
-To do some interctions exchange have script for fill some orders until exchange is not live-traded. Run
+To do some interactions exchange have script for fill some orders until exchange is not live-traded. Run
 ```
 npm run seed-exchange
 ```
