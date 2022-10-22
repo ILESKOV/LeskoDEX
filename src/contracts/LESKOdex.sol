@@ -242,7 +242,7 @@ contract LESKOdex {
     ) public {
         require(amountGet_ != 0, "Getting amount cannot be zero");
         require(amountGive_ != 0, "Giving amount cannot be zero");
-        _orderCount = _orderCount + 1;
+        _orderCount += 1;
         _orders[_orderCount] = Order(
             _orderCount,
             msg.sender,
@@ -337,6 +337,34 @@ contract LESKOdex {
         _tokens[tokenGive_][user_] = _tokens[tokenGive_][user_] - (amountGive_);
         _tokens[tokenGive_][msg.sender] = _tokens[tokenGive_][msg.sender] + (amountGive_);
         emit OrderFilled(id_, user_, tokenGet_, amountGet_, tokenGive_, amountGive_, msg.sender, block.timestamp);
+    }
+
+    /**
+     * @dev Returns the Order data by providing order Id.
+     */
+    function getOrder(uint256 orderId_) public view returns (Order memory) {
+        return _orders[orderId_];
+    }
+
+    /**
+     * @dev Returns by providing order Id the bool whether the order was filled.
+     */
+    function getOrderFilled(uint256 orderId_) public view returns (bool) {
+        return _orderFilled[orderId_];
+    }
+
+    /**
+     * @dev Returns by providing order Id the bool whether the order was cancelled.
+     */
+    function getOrderCancelled(uint256 orderId_) public view returns (bool) {
+        return _orderCancelled[orderId_];
+    }
+
+    /**
+     * @dev Returns the amount of all orders.
+     */
+    function getOrderCount() public view returns (uint256) {
+        return _orderCount;
     }
 
     /**

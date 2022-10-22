@@ -1,7 +1,12 @@
-import { tokens, ether, EVM_REVERT, ETHER_ADDRESS } from "./helpers";
-
 const Token = artifacts.require("./ESKO");
 const Exchange = artifacts.require("./LESKOdex");
+const ETHER_ADDRESS = "0x0000000000000000000000000000000000000000";
+const EVM_REVERT = "VM Exception while processing transaction: revert";
+const ether = (n) => {
+  return new web3.utils.BN(web3.utils.toWei(n.toString(), "ether"));
+};
+// Same as ether
+const tokens = (n) => ether(n);
 
 require("chai").use(require("chai-as-promised")).should();
 
@@ -23,21 +28,24 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
 
   describe("deployment", () => {
     it("tracks the fee account", async () => {
-      const result = await exchange.feeAccount();
+      const result = await exchange.getFeeAccount();
       result.should.equal(feeAccount);
     });
 
     it("tracks the fee percent", async () => {
-      const result = await exchange.feePercent();
+      const result = await exchange.getFeePercent();
       result.toString().should.equal(feePercent.toString());
     });
   });
 
-  describe("fallback", () => {
-    it("reverts when Ether is sent", () => {
-      exchange
-        .sendTransaction({ value: 1, from: user1 })
-        .should.be.rejectedWith(EVM_REVERT);
+  describe("fallback must call deposiEther", () => {
+    let amount;
+    amount = ether(1);
+    it("reverts when Ether is sent", async () => {
+      await exchange.depositEther({ from: user1, value: amount });
+      await exchange.sendTransaction({ from: user1, value: amount });
+      const balance = await exchange.balanceOf(ETHER_ADDRESS, user1);
+      balance.toString().should.equal((amount * 2).toString());
     });
   });
 
@@ -51,7 +59,7 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
     });
 
     it("tracks the Ether deposit", async () => {
-      const balance = await exchange.tokens(ETHER_ADDRESS, user1);
+      const balance = await exchange.balanceOf(ETHER_ADDRESS, user1);
       balance.toString().should.equal(amount.toString());
     });
 
@@ -87,7 +95,7 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
       });
 
       it("withdraws Ether funds", async () => {
-        const balance = await exchange.tokens(ETHER_ADDRESS, user1);
+        const balance = await exchange.balanceOf(ETHER_ADDRESS, user1);
         balance.toString().should.equal("0");
       });
 
@@ -130,7 +138,7 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
         balance = await token.balanceOf(exchange.address);
         balance.toString().should.equal(amount.toString());
         // Check tokens on exchange
-        balance = await exchange.tokens(token.address, user1);
+        balance = await exchange.balanceOf(token.address, user1);
         balance.toString().should.equal(amount.toString());
       });
 
@@ -183,7 +191,7 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
       });
 
       it("withdraws token funds", async () => {
-        const balance = await exchange.tokens(token.address, user1);
+        const balance = await exchange.balanceOf(token.address, user1);
         balance.toString().should.equal("0");
       });
 
@@ -239,9 +247,9 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
     });
 
     it("tracks the newly created order", async () => {
-      const orderCount = await exchange.orderCount();
+      const orderCount = await exchange.getOrderCount();
       orderCount.toString().should.equal("1");
-      const order = await exchange.orders("1");
+      const order = await exchange.getOrder("1");
       order.id.toString().should.equal("1", "id is correct");
       order.user.should.equal(user1, "user is correct");
       order.tokenGet.should.equal(token.address, "tokenGet is correct");
@@ -257,9 +265,9 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
         .length.should.be.at.least(1, "timestamp is present");
     });
 
-    it('emits an "Order" event', () => {
+    it('emits an "OrderCreated" event', () => {
       const log = result.logs[0];
-      log.event.should.eq("Order");
+      log.event.should.eq("OrderCreated");
       const event = log.args;
       event.id.toString().should.equal("1", "id is correct");
       event.user.should.equal(user1, "user is correct");
@@ -324,7 +332,7 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
               tokens(0.9).toString(),
               "user2 tokens deducted with fee applied"
             );
-          const feeAccount = await exchange.feeAccount();
+          const feeAccount = await exchange.getFeeAccount();
           balance = await exchange.balanceOf(token.address, feeAccount);
           balance
             .toString()
@@ -332,13 +340,13 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
         });
 
         it("updates filled orders", async () => {
-          const orderFilled = await exchange.orderFilled(1);
+          const orderFilled = await exchange.getOrderFilled(1);
           orderFilled.should.equal(true);
         });
 
-        it('emits a "Trade" event', () => {
+        it('emits a "OrderCreated" event', () => {
           const log = result.logs[0];
-          log.event.should.eq("Trade");
+          log.event.should.eq("OrderFilled");
           const event = log.args;
           event.id.toString().should.equal("1", "id is correct");
           event.user.should.equal(user1, "user is correct");
@@ -394,13 +402,13 @@ contract("Exchange", ([deployer, feeAccount, user1, user2]) => {
         });
 
         it("updates cancelled orders", async () => {
-          const orderCancelled = await exchange.orderCancelled(1);
+          const orderCancelled = await exchange.getOrderCancelled(1);
           orderCancelled.should.equal(true);
         });
 
-        it('emits a "Cancel" event', () => {
+        it('emits a "OrderCancelled" event', () => {
           const log = result.logs[0];
-          log.event.should.eq("Cancel");
+          log.event.should.eq("OrderCancelled");
           const event = log.args;
           event.id.toString().should.equal("1", "id is correct");
           event.user.should.equal(user1, "user is correct");
